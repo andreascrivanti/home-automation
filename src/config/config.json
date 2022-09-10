@@ -1,0 +1,36 @@
+{
+    "MQTT_BROKER": "xxx",
+    "MQTT_USER": "xxx",
+    "MQTT_PWD": "xxx",
+    "HUE_BRIDGE": "xxx",
+    "HUE_USER": "xxx",
+    "handlers_type_configuration":{
+        "carousel":{
+            "carousel_time": 1000,
+            "short_click": 500,
+            "consecutive_click_time":2000
+        }
+    },
+    "automation_handlers": [
+        {
+            "handler_name": "bath-ext",
+            "handler_type": "carousel",
+            "mqtt_topic": "shellies/bathroom-ext/input/0",
+            "light_group_name": "bathroom",
+            "scene_template": ["shower*"],
+            "scene_default": "default",
+            "overrides":{
+                "carousel_time": 1000,
+                "short_click": 500,
+                "consecutive_click_time":2000
+            }
+        },
+        {
+            "handler_name": "bath-int",
+            "handler_type": "toggle",
+            "mqtt_topic": "shellies/bathroom-int/input/0",
+            "light_group_name": "bathroom",
+            "scene_default": "default"
+        }
+    ]
+}

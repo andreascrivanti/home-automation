@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mosquitto-instance
+    restart: always
+    volumes:
+      - "/srv/services/mosquitto/config:/mosquitto/config"
+      - "/srv/services/mosquitto/log:/mosquitto/log"
+      - "/srv/services/mosquitto/data/:/mosquitto/data"
+    ports:
+      - 1883:1883
+  home-automation:
+    build:
+      context: ../
+      dockerfile: ./package/docker/home_automation/Dockerfile
+    container_name: home-automation-instance
+    stdin_open: true
+    tty: true
+    restart: always
+    volumes: 
+      - "/srv/services/home-automation/config.json:/opt/home-automation/node_modules/home-automation/dist/config/config.json"
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.2.0/24
